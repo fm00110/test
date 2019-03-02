@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="com.ncu.dao.IMinisterDao">
+
+	<!-- <resultMap type="Minister" id="selectminister" >
+		<id column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
+		<association property="country" javaType="Country">
+			<id column="cid" property="cid"/>
+			<result column="cname" property="cname"/>
+		</association>
+		
+	</resultMap>
+
+	<select id="selectMinisterBuId" resultMap="selectminister" >
+		select mid,mname,cid,cname 
+		from minister, country 
+		where countryid=cid and mid=#{abc}
+	</select> -->
+	
+	<!--
+	 上下代码实现的是同一功能,但是上表是通过多表查询，而下表是通过单表查询
+	但是上表不能延迟加载，而下表可以
+	 -->
+	
+	<select id="selectCountry" resultType="Country">
+	select cid,cname from country where cid=#{abc}
+	</select>
+	
+	<resultMap type="Minister" id="selectminister" >
+		<id column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
+		<association property="country" javaType="Country" select="selectCountry" column="countryid">		
+		</association>
+		
+	</resultMap>
+	
+	<select id="selectMinisterBuId" resultMap="selectminister" >
+		select mid,mname,countryid from minister where mid=#{abc}
+	</select>
+
+</mapper>

@@ -1,0 +1,17 @@
+ORM是  对象关系映射  Object relationship mapping
+一般情况下成员变量和属性是相同的，但是属性和成员变量不是一样的；
+属性是set 和get方法后面的字母将大写字母便小写
+列如：setName---------->name就是属性
+但是  private String name  中的name是成员变量
+
+成员变量是私有的，属性是公开的
+
+成员变量和属性不同：
+private String name
+public void setAbc(String dfg){
+      name = dfg;
+}
+name就是成员变量 ，abc就是属性
+
+
+本案列中bean属性名和数据库的字段名不一样。

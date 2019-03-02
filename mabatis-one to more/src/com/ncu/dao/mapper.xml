@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="com.ncu.dao.ICountryDao">
+
+<!-- 	<resultMap type="Country" id="countrymap">
+	<id column="cid" property="cid"/>
+	<result column="cname" property="cname"/>
+	<collection property="ministers" ofType="Minister">
+		<id column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
+	</collection>
+	
+	</resultMap>
+	
+	<select id="selectCountryById" resultMap="countrymap" >
+		select cid,cname,mid,mname 
+		from country,minister 
+		where countryid=cid and cid=#{cid}
+	</select> -->
+	
+	<!-- 
+	上下两种代码实现的功能都一样,只不过上面使用的是多表连接查询,而下面使用的是单表连接
+	在实际使用中推荐使用下面这种方式，因为下面的代码可以使用延迟加载，而上面的不能
+	 -->
+	
+	<select id="selectMinisterByCountry" resultType="Minister">
+	select mid,mname from minister where countryid=#{abc}
+	</select>
+	
+	<resultMap type="Country" id="countrymap">
+	<id column="cid" property="cid"/>
+	<result column="cname" property="cname"/>
+	<collection property="ministers" ofType="Minister" select="selectMinisterByCountry" column="cid"></collection>
+		
+	</resultMap>
+	<select id="selectCountryById" resultMap="countrymap" >
+		select cid,cname from country where  cid=#{cid}
+	
+	</select>
+	
+</mapper>

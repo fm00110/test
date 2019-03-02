@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	<mapper namespace="com.ncu.daos.ITeacherDao">
+		
+		<select id="selectTeacherByUP" resultType="Teacher">
+			select db_teacher.id,tcid,tcname,position,tcusername from db_teacher,db_user
+			where db_teacher.tcusername=db_user.username and username=#{username} and password=#{password}
+		</select>
+		
+		<select id="selectMyStudent" resultType="Student">
+			select db_student.stuid,db_student.sname,db_student.sex,db_student.phone,db_student.stuusername from db_student,db_score 
+			where db_student.sname=db_score.stuname and tcname=#{tcname}
+		</select>
+		
+		<select id="selectMyCname" resultType="String">
+			select cname from db_coutc where tcname=#{tcname}
+		</select>
+		
+		<insert id="insertMyStudent" parameterType="Student">
+			insert into db_student(stuid,sname,sex,phone,stuusername) values(#{stuid},#{sname},#{sex},#{phone},#{stuusername})
+		</insert>
+		
+		<insert id="insertMyStudentScore" parameterType="Score">
+			insert into db_score(cname,stuname,score,tcname,grname) values(#{cname},#{stuname},#{score},#{tcname},#{grname})
+		</insert>
+		
+		<insert id="insertMyStudentGra">
+			insert into db_stugra(grname,stuname) values(#{grname},#{stuname})
+		</insert>
+		
+		<select id="selectMyDegree" resultType="Integer">
+			select degree from db_user where username=#{username}
+		</select>
+		
+		<select id="selectAllInform" resultType="Inform">
+		select id,title,content,tcname from db_inform
+		</select>
+		
+		<insert id="insertInform">
+			insert into db_inform(title,content,tcname) values(#{title},#{content},#{tcname})
+		</insert>
+		
+		<select id="selectMyStudentScore" resultType="StudentScore">
+			select db_score.cname,db_score.stuname,db_score.score,db_score.grname,db_student.stuid,db_student.sex 
+			from db_score,db_student where db_score.stuname=db_student.sname and db_score.tcname=#{tcname}
+		</select>
+		
+		<update id="updateMyStudentScore">
+			update db_score set db_score.score=#{score} where stuname=#{stuname} and tcname=#{tcname}
+		</update>
+	</mapper>

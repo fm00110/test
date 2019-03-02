@@ -1,0 +1,31 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+ 
+<hibernate-mapping>  
+  
+    <class name="com.ncu.entity.Employee" table="t_emp" >  
+          
+        <id name="id" type="java.lang.Integer">  
+          <column name="id"></column>
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+           
+        </id>  
+          
+      
+          
+        <property name="name" column="name"  type="java.lang.String"/>  
+        <property name="salary" column="salary"  type="float"/>  
+        <property name="email" column="email"  type="java.lang.String" />
+       
+       <many-to-one name="dept" class="com.ncu.entity.Department">
+       	<column name="dept_id"></column>
+       </many-to-one>
+         
+           
+    </class>  
+      
+</hibernate-mapping>  

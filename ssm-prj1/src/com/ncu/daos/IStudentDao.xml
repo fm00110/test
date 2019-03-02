@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	<mapper namespace="com.ncu.daos.IStudentDao">
+		
+		<select id="selectStudentByUP" resultType="Student">
+			select db_student.id,stuid,sname,sex,phone,stuusername from db_user,db_student
+			where db_student.stuusername=db_user.username and username=#{username} and password=#{password}
+		</select>
+		
+		<select id="selectStudentScoreInfo" resultType="Score">
+			select id,cname,stuname,score,tcname,grname from db_score
+			where stuname=#{stuname}
+		
+		</select>
+		<select id="selectAllCourse" resultType="CouTeacher">
+		select cid,cname,tcname from db_coutc
+		</select>
+		
+		<select id="selectMyCourse" resultType="String">
+			select cname from db_score where stuname=#{stuname}
+		</select>
+		
+		<select id="selectGrade" resultType="String">
+			select grname from db_stugra where stuname=#{stuname}
+		</select>
+		
+		<insert id="updateCourse" parameterType="Score">
+			insert into db_score(cname,stuname,tcname,grname) values(#{cname},#{stuname},#{tcname},#{grname})
+		</insert>
+		
+		<insert id="insertPartEvaluation" parameterType="Evaluation">
+			insert into db_evaluation(cname,tcname,stuname) values(#{cname},#{tcname},#{stuname})
+		</insert>
+		
+		<select id="selectMyEvaluation" resultType="Evaluation">
+		select cname,tcname,stuname,score,evaluation from db_evaluation where stuname=#{stuname}
+		</select>
+		
+		<update id="updateEvaluation" parameterType="Evaluation">
+		update db_evaluation set score=#{score},evaluation=#{evaluation} 
+		where cname=#{cname} and tcname=#{tcname} and stuname=#{stuname}
+		</update>
+		
+		<select id="selectInform" resultType="Inform">
+		select title,content,tcname from db_inform
+		</select>
+		
+		<select id="selectMyPassword" resultType="String">
+			select password from db_user where username=#{username}
+		</select>
+		
+		<update id="updateMyPassword" parameterType="User">
+			update db_user set password=#{password} where username=#{username}
+		</update>
+	</mapper>

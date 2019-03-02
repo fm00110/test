@@ -1,0 +1,11 @@
+save方法会将一个临时对象变为持久化对象，为对象分配ID，在flush缓存是hi发送一条insert语句
+在save方法之前设置ID是无效的，而且持久化对象的ID是不能被修改的，因此不能再save方法之后不能再设置ID
+
+get()  vs  load()
+get()会立即加载该对象，而load（）方法  不会立即加载，只有再使用时才会加载，用之前是一个代理对象
+get()时立即检索  ，load（）时延迟检索
+若数据表中没有对应的记录，session也没有关闭，则get()将返回null ，
+  而load（）不使用该对象的任何属性时，没问题，若需要初始化则会抛出一个异常
+  
+load（）方法可能会抛出一个懒加载异常lazyinititalizationexception:再需要初始化代理对象之前已经关闭了session
+

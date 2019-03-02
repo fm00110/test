@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+.a{
+	background-color: #8080ff;
+	height: 30px;
+	width: 100%;
+	padding: 0;
+	
+}
+.b{
+	background-color: #808080;
+	height: 290px;
+	width: 100%;
+	padding: 0;
+}
+.c{
+	float: left;
+	background-color: #008040;
+	border: 1px;
+	height: 290px;
+	width: 50%;
+	line-height: 80px;
+
+	
+	
+	
+}
+.d{
+		float: right;
+	background-color: #408080;
+	border: 1px;
+	height: 290px;
+	width: 50%;
+	padding: 0;
+}

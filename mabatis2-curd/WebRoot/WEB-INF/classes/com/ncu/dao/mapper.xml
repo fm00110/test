@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="test">
+	<insert id="insertStudent" parameterType="Student">
+	insert into student(name,age,score) values(#{name},#{age},#{score})  <!-- #{}中的数据必须要跟传过来的数据一致 -->
+	</insert>	
+	
+	<insert id="insertStudentCacheId" parameterType="Student">
+	insert into student(name,age,score) values(#{name},#{age},#{score})
+	<selectKey resultType="int" keyProperty="id">  <!-- 将查询到的id初始化为student的id -->  
+	select @@identity   <!-- 查询刚插入到数据库中的student的id -->
+	</selectKey>	
+	</insert>
+	
+	<delete id="deleteStudentById">
+	delete from student where id=#{abc}   <!-- 这里的#{}仅仅是一个占位符，里面放什么都行 -->
+	</delete>
+	
+	
+	<update id="updateStudent">
+	update student set name=#{name}, age=#{age}, score=#{score} where id=#{id}
+	</update>
+	
+	<select id="selectAllStudents" resultType="Student">
+	select id,name,age,score from student
+	</select>
+	
+	<select id="selectStudentById" resultType="Student">
+	select id,name,age,score from student where id=#{adc}     <!-- 其中#{}中的数据可以随便写 -->
+	</select>
+	
+	<select id="selectStudentByName" resultType="Student">
+	select id,name,age,score from student where name=#{name} <!-- 其中#{}中的数据可以随便写 -->
+	</select>
+	
+	<!-- <select id="selectStudentByName" resultType="Student">
+	select id,name,age,score from student like '%' #{abc} '%' 
+	 模糊查询，可以根据输入的字符串查询相关的数据，其中#{}的数据可以随便填写	
+	</select> -->
+	
+	<select id="selectStudent" resultType="Stucou">
+	select student.name,student.age,course.cname from student,course
+	</select>
+	
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="com.ncu.dao.INewsLabelDao">
+	
+	
+	<resultMap type="NewsLabel" id="newsLabelmapper">
+	<id column="id" property="id"/>
+	<result column="name" property="name"/>
+	<collection property="children" ofType="NewsLabel" select="selectChildrenByParent" column="id"></collection>	
+	</resultMap><!-- 调用的select是自身,这是递归 -->
+	
+	
+	
+	<select id="selectChildrenByParent" resultMap="newsLabelmapper">
+		select id,name from newslabel where pid=#{abc}
+	</select>
+	
+	
+	
+	<!--
+	 上面是根据pid找自己的子孙
+	 下面是根据id找自己的父类
+	 但是要将查询到的集合换成单独的类NewsLabel
+	 在输出的时候将children改成fanther
+	  -->
+	
+	
+	<resultMap type="NewsLabel" id="selectFathermapper">
+	<id column="id" property="id"/>
+	<result column="name" property="name"/>
+	<collection property="children" ofType="NewsLabel" select="selectChildrenById" column="pid"></collection>	
+	</resultMap>
+	
+	
+	<select id="selectChildrenById" resultMap="selectFathermapper">
+		select id,name,pid from newslabel where id=#{abc}
+	</select>
+	
+	
+	
+</mapper>

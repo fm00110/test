@@ -1,0 +1,26 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+<hibernate-mapping>  
+  
+  
+    <class name="com.ncu.entity.Department"  table="departments">  
+            
+        <id name="deptId" type="java.lang.Integer"   column="deptId">  
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+        </id>  
+        <property name="deptName" column="deptName"  type="java.lang.String"/>  
+        
+        <!-- 使用many-to-one的方式来映射1-1关联关系 -->
+     	<many-to-one name="mgr" class="com.ncu.entity.Manager" column="mgrId" unique="true"></many-to-one>
+          
+       
+           
+        
+           
+    </class>  
+      
+</hibernate-mapping>  

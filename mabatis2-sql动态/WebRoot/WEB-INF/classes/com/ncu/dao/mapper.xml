@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="com.ncu.dao.IStudentDao">
+	<select id="selectStudents" resultType="Student">
+	select id,name,age,score 
+	from student
+	<where>
+	<if test="name != null and name != ''">
+	and name like '%' #{name} '%'
+	</if>
+	<if test="age > 0">
+	and age > #{age}
+	</if>
+	<if test="score > 0">
+	and score > #{score}
+	</if>
+	</where>
+	</select>
+	
+	<select id="selectStudentsByChoose" resultType="Student">
+	select id,name,age,score 
+	from student
+		<where>
+			<choose>
+				<when test="name != null and name != ''">
+				and name like '%' #{name} '%'
+				</when>
+				<when test="age > 0">
+				and age > #{age}
+				</when>
+				<otherwise>
+					1 = 2
+				</otherwise>
+			</choose>
+	
+		</where>
+	</select>
+	
+	<select id="selectStudentsForeach" resultType="Student">
+		select id,name,age,score from student 
+		<if test="array.length > 0">
+			where id in
+				<foreach collection="array" item="myid" open="(" close=")" separator=",">
+				#{myid}
+				</foreach>
+		</if>
+
+	</select>
+	
+<!-- 	<select id="selectStudentsForeach" resultType="Student">
+		select id,name,age,score from student 
+		<if test="list.size > 0">
+			where id in
+				<foreach collection="list" item="myid" open="(" close=")" separator=",">
+				#{myid}
+				</foreach>
+		</if>
+
+	</select> -->
+	
+	
+</mapper>

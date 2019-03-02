@@ -1,0 +1,37 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+
+<hibernate-mapping>  
+  
+
+    <class name="com.ncu.entity.Department" table="t_depts" >  
+          
+        <!--   
+            <id>：定义了该属性到数据库表主键字段的映射。  
+            name="userId"：标识属性的名字；  
+            column="userId"：表主键字段的名字，如果不填写与name一样；  
+         -->  
+        <id name="id" type="java.lang.Integer">  
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+        </id>  
+          
+        <property name="name" column="name"  type="java.lang.String"/>  
+       
+       <set name="empls"  table="t_emp" inverse="true">
+       		<key>
+       			<column name="dept_id"></column>
+       		</key>
+       		<one-to-many class="com.ncu.entity.Employee"/>
+       </set>
+          
+    
+           
+        
+           
+    </class>  
+      
+</hibernate-mapping>  

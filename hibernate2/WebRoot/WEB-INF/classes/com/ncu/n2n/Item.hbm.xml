@@ -1,0 +1,32 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+<hibernate-mapping>  
+  
+  
+    <class name="com.ncu.n2n.Item"  table="items">  
+            
+        <id name="id"  type="java.lang.Integer"   column="id">  
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+        </id>  
+        <property name="name" column="name"  type="java.lang.String"/>  
+        
+         <set name="categories" table="categorys_items" lazy="true" inverse="true">
+        <!-- 外键 -->
+        <key>
+        <column name="i_id"></column>
+        
+        </key>
+        <!-- 使用many-to-many指定多对多的关联关系，column执行set集合中的持久化类再中间表的外键列的名称 -->
+        <many-to-many class="com.ncu.n2n.Category" column="c_id"></many-to-many>
+        </set>
+       
+           
+        
+           
+    </class>  
+      
+</hibernate-mapping>  

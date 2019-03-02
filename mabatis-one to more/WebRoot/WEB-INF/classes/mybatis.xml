@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+
+<configuration>
+	<!-- 加入数据库属性 -->
+	<properties resource="jdbc.properties"></properties>
+	
+	
+	<!-- 设置整个应用所使用的常量 -->
+	<settings>
+		<!-- 延迟加载的总开关，只有它的值为true时,侵入式延迟加载和深度延迟加载才有效 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		
+		<!-- 侵入式延迟加载 -->
+		<setting name="aggressiveLazyLoading" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- 给类取别名 -->
+		<!-- <typeAlias type="com.ncu.bean1.Student" alias="Student"/> -->
+		<!-- 给整个包都取别名，默认别名=类名 -->
+		<package name="com.ncu.bean1"/>
+	</typeAliases>
+	
+    <!-- 配置运行环境 -->
+	<environments default="testEM">
+		<environment id="testEM">		
+			<transactionManager type="JDBC"></transactionManager>		
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.user}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 注册映射文件 -->
+	<mappers>
+		<mapper resource="com/ncu/dao/mapper.xml"/>
+	</mappers>
+	
+	
+</configuration>

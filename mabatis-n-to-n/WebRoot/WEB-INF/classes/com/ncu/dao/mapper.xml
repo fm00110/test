@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- 映射文件的配置 -->
+
+<mapper namespace="com.ncu.dao.IStudentDao">
+	
+	
+	<resultMap type="Student" id="selectStudentInfo">
+		<id column="sid" property="sid"/>
+		<result column="sname" property="sname"/>
+		<collection property="courses" ofType="Course" >
+			<id column="cid" property="cid"/>
+			<result column="cname" property="cname"/>
+		</collection>
+				
+	</resultMap>
+	
+	<select id="selectStudentById" resultMap="selectStudentInfo">
+		select sid,sname cid,cname from student,stucou,course
+		where sid=stuid and cid=couid and sid=#{sid}
+		
+	</select>
+	
+	
+</mapper>

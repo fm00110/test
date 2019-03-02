@@ -1,0 +1,40 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+<hibernate-mapping package="com.ncu.n2n">  
+  
+  
+    <class name="Category"  table="categorys">  
+            
+        <id name="id"  type="java.lang.Integer"   column="id">  
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+        </id>  
+        <property name="name" column="name"  type="java.lang.String"/>  
+        
+        <!-- 指定中间表,双向多对多关系，还要参考item.hbm.xml -->
+        <!-- set集合的batch-size="5"元素可以设定一次初始化set集合的数量，可以加快延迟检索的速度
+        		order-by=“ ”可以对set进行分组
+        		fetch="subselect"可以通过子查询的方式来初始化所有的set集合，子查询作为where子句的in的条件出现，
+        		子查询所有1的一端的ID，
+        		如果fetch="join"的取值为join是将会迫切左外连接的方式检索n的一端集合属性
+        		迫切左外连接（使用左外连接查询，且把集合 属性进行初始化），而且会自动忽略lazy="true"的属性
+         -->
+        <set name="items" table="categorys_items" lazy="true" inverse="false" >
+        <!-- 外键 -->
+        <key>
+        <column name="cid"></column>      
+        </key>
+        <!-- 使用many-to-many指定多对多的关联关系，column执行set集合中的持久化类再中间表的外键列的名称 -->
+        <many-to-many class="Item" column="i_id"></many-to-many>
+        </set>
+          
+       
+           
+        
+           
+    </class>  
+      
+</hibernate-mapping>  

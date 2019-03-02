@@ -1,0 +1,30 @@
+<?xml version="1.0"?>  
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">  
+      
+<hibernate-mapping>  
+  
+  
+    <class name="com.ncu.entity.Manager"  table="managers">  
+            
+        <id name="mgrId" type="java.lang.Integer"   column="mgrId">  
+            <!-- <generator>：指定主键由什么生成，推荐使用uuid，assigned指用户手工填入，native：使用数据库本地方式。 -->  
+            <generator class="native"/>  
+        </id>  
+        <property name="mgrName" column="mgrName"  type="java.lang.String"/>  
+     	
+     	
+     	<!-- 映射1-1的关联关系：再对应的数据表中已经有外键了，当前持久化类使用one-to-one进行映射 
+     			没有外键的一端需要使用one-to-one元素，该元素使用property-ref属性指定使用被关联实体主键以外的字段
+     			作为关联字段
+     		-->
+     	<one-to-one name="dept" class="com.ncu.entity.Department" property-ref="mgr"></one-to-one>
+          
+       
+           
+        
+           
+    </class>  
+      
+</hibernate-mapping>  

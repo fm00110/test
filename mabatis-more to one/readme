@@ -1,0 +1,35 @@
+ORM是  对象关系映射  Object relationship mapping
+一般情况下成员变量和属性是相同的，但是属性和成员变量不是一样的；
+属性是set 和get方法后面的字母将大写字母便小写
+列如：setName---------->name就是属性
+但是  private String name  中的name是成员变量
+
+成员变量是私有的，属性是公开的
+
+成员变量和属性不同：
+private String name
+public void setAbc(String dfg){
+      name = dfg;
+}
+name就是成员变量 ，abc就是属性
+
+
+缓存的底层实现是一个Map,Map的value是查询结果
+map的key,即该查询依据，使用的ORM结构不同，查询依据是不同的
+证明从以及缓存中读取数据的依据是：
+mybatis的查询一居室：SQL的id和SQL语句的结合还有哈希值
+hibernate的查询依据是:查询结果对象的id
+
+进行插入 ，删除， 更新操作都要提交，查询不需要提交就可以
+		 * 而且，增、删改操作会清空一级缓存，无论是否提交
+		 * 一级缓存的生命周期和SQL session的生命周期是一致的
+		 * 
+		 * 开启内置的二级缓存步骤：
+		 * 1)对实体进行序列化
+		 * 2)在映射文件中添加<cathe/>标签
+		   3)增、删、改同样也会清空二级缓存
+		   4）对于二级缓存的清空，实质上是对所查找key对应的value置为null
+		                   而非将<key, value>对，即entry删除
+           5）从数据库中进行select查询的条件是:
+           		1、缓存中根本就不存在这个key
+           		2、缓存中存在这个key，但是它所对应的value为null

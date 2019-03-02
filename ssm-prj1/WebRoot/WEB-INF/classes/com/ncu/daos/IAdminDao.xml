@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	<mapper namespace="com.ncu.daos.IAdminDao">
+		
+		<select id="selectAdminByUP" resultType="Admin">
+			select id,aid,admname,ausername,password from db_admin 
+			where ausername=#{ausername} and password=#{password}
+		</select>
+		
+		<select id="selectAllTeacherInfo" resultType="TeacherAllInfo">
+			
+		</select>
+	</mapper>
